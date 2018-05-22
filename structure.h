@@ -1,5 +1,5 @@
 #include <semaphore.h>
-'''
+/*
 typedef struct{
 	int Id;
 	char data[30];
@@ -20,13 +20,19 @@ typedef struct{
 	char spy_read;
 	Line lines[];
 }Shared_mem;
-'''
+*/
 
 typedef struct{
 	int Id;
 	char data[30];
 
 }Line;
+
+typedef struct{
+	int PID;
+	int status; // 0->dormido  1->wait  2->ejecucion
+
+}Hijo;
 
 typedef struct{
 	int type;  //1-> reader  2->writer  3->egoista
@@ -37,12 +43,6 @@ typedef struct{
 }Padre;
 
 typedef struct{
-	int PID;
-	int status; // 0->dormido  1->wait  2->ejecucion
-
-}Hijo;
-
-typedef struct{
 	sem_t sem_writer;
 	sem_t sem_reader;
 	sem_t sem_egoista;
@@ -50,7 +50,9 @@ typedef struct{
 	Padre reader;
 	Padre egoista;
 	int PID_count;
-	Linea line[];
+	Line line[];
+	int memory_size;
+	int finalizar; //bool que mantendra todos los ciclos activos hasta que se finalice el programa
 
 }Programa;
 

@@ -15,7 +15,7 @@
 
 int main(int argc, char *argv[]){
 
-	Shared_mem *shared_mem = (Shared_mem*)malloc(sizeof(Shared_mem));
+	Programa *shared_mem = (Programa*)malloc(sizeof(Programa));
 
 	int total_lines = size(shared_mem);
 
@@ -27,6 +27,7 @@ int main(int argc, char *argv[]){
 
 	int i = 0;
 
+	//Limpia la memoria
 	for(i = 0; i< total_lines; i++){
 		str[i] = '0';
 		i = i+1;
