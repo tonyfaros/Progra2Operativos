@@ -15,5 +15,6 @@ typedef struct{
 	int shmid;
 	int sleep_time;
 	int writing_time;
+	
 
 }Writer;
