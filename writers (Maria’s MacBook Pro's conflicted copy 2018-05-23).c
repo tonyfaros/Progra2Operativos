@@ -12,9 +12,10 @@ void escribir_bitacora(char *msj);
  */
 int main(int argc, char** argv) {
 
-    int j = atoi(argv[1]);
-	char total_lines[12];
-	sprintf(total_lines, "%d", parametro);
+    int cant_writers = atoi(argv[1]);
+    int tiempo_sleep = atoi(argv[2]);
+    int tiempo_ejecucion = atoi(argv[3]);
+	//sprintf(total_lines, "%d", parametro);
 
     /*
 

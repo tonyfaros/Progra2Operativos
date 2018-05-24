@@ -22,39 +22,39 @@ typedef struct{
 }Shared_mem;
 */
 
+
 typedef struct{
 	int Id;
 	char data[30];
 
 }Line;
 
-typedef struct{
+typedef struct Hijo{
 	int PID;
 	int status; // 0->dormido  1->wait  2->ejecucion
 
-}Hijo;
+}hijo;;
 
-typedef struct{
-	int type;  //1-> reader  2->writer  3->egoista
+typedef struct Padre{
+	//int type;  //1-> reader  2->writer  3->egoista
 	int sleep_time;
 	int execution_time;
-	Hijo procesos[];
+	hijo procesos[100];
 
-}Padre;
-
-typedef struct{
+}padre;
+typedef struct Programa{
 	sem_t sem_writer;
 	sem_t sem_reader;
 	sem_t sem_egoista;
-	Padre writer;
-	Padre reader;
-	Padre egoista;
-	int PID_count;
-	Line line[];
+	padre writer;
+	padre reader;
+	padre egoista;
+	Line lines[1000]; 
 	int memory_size;
 	int finalizar; //bool que mantendra todos los ciclos activos hasta que se finalice el programa
 
-}Programa;
+}programa;
+ 
 
 /*
 	Estructuras:

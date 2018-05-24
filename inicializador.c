@@ -11,26 +11,42 @@
 
 
 
-
-
 int main(int argc, char *argv[]){
 
-	Programa *shared_mem = (Programa*)malloc(sizeof(Programa));
+printf("hola");
+	int parametro = atoi(argv[1]);
+	char total_lines[12];
+	sprintf(total_lines, "%d", parametro);
 
-	int total_lines = size(shared_mem);
 
-	key_t key = ftok("shmfile",21);
-
-	int shmid = shmget(key, total_lines, 0777 | IPC_CREAT);
-
-	char *str = (char*) shmat(shmid, (void*)0,0);
-
-	int i = 0;
-
-	//Limpia la memoria
-	for(i = 0; i< total_lines; i++){
-		str[i] = '0';
-		i = i+1;
+	key_t key = 6001;
+	//Obtaining Access to shared memory
+	int shmid = shmget(key, sizeof(programa), 0777 | IPC_CREAT);
+	
+	if(shmid<0)
+	{
+		perror("Writer Error: Access Problem");
+		return 0;
 	}
-	return (EXIT_SUCCESS);
+	
+	//Attaching the shared memory
+	programa *memoria = shmat(shmid, NULL, 0);
+	
+	memoria->memory_size = parametro;
+	sem_init(&memoria->sem_egoista,0,0);
+	sem_init(&memoria->sem_writer,0,0);
+	sem_init(&memoria->sem_reader,0,0);
+
+
+	//se llenan las lineas vacias
+	char vacio[]="vacio";
+	for (int j = 0; j<parametro; j++){
+		for (int i = 0; i<strlen(vacio); i++)
+		{
+			memoria->lines[j].data[i]=vacio[i];
+		}
+	}
+	
+   	printf("Memoria apartada con exito\n");
+	return 0;
 }
