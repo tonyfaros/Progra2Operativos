@@ -9,6 +9,35 @@ char *line = "\n---------------------------------------------------\n";
  * READER
  */
 int main(int argc, char** argv) {
+    int cantidad_readers = atoi(argv[1]);
+    int tiempo_sleep= atoi(argv[2]);
+    int tiempo_read = atoi(argv[3]);
+	
+    key_t key = 6001;
+	//Obtaining Access to shared memory
+	int shmid =  shmget(key, 1, 0666);
+	if(shmid<0)
+	{
+		perror("Reader Error: Access Problem");
+		return 0;
+	}
+ 
+	//Attaching the shared memory
+	programa *memoria = (memoria = shmat(shmid, NULL, 0)); 
+        
+	if(memoria=="-1")
+	{
+		perror("Reader Error: Problem in attaching");
+	        return 0;
+	}
+    memoria->reader.cant_hijos = cantidad_readers;
+    memoria->reader.sleep_time = tiempo_sleep;
+    memoria->reader.execution_time = tiempo_read;
+
+    for(int i = 0; i<cantidad_readers;i++){
+        memoria->reader.procesos[i].PID = i+1;
+    }
+    /*
     int n_procesos = 1;
     int t_sleep = 4;
     int t_read = 2;    
@@ -29,9 +58,10 @@ int main(int argc, char** argv) {
                    
     
              
-    return (EXIT_SUCCESS);
+    return (EXIT_SUCCESS);*/
+    return 0;
 }
-
+/*
 void *reader_function(void *vargp)
 {     
     Reader *reader = (Reader*) vargp;
@@ -81,4 +111,4 @@ void escribir_bitacora(char *msj){
     bitacora = fopen ("/home/fauricio/NetBeansProjects/Readers – Writers/bitacora.txt", "a+");  
     fprintf(bitacora,"Reader-> %s\n",msj);
     fclose(bitacora);
-}
+}*/

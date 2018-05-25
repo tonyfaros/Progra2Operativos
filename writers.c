@@ -1,20 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <time.h>
 
-#include <iso646.h>
-
-#include "writer_structure.h"
+#include "structure.h"
 char *line = "---------------------------------------------------\n";
 
 void *writer_function(void *vargp);
 void escribir_bitacora(char *msj);
 
-/*
- * WRITER
- */
+
 int main(int argc, char** argv) {
 
-    int j = atoi(argv[1]);
-	char total_lines[12];
-	sprintf(total_lines, "%d", parametro);
+    int cantidad_writers = atoi(argv[1]);
+    int tiempo_sleep= atoi(argv[2]);
+    int tiempo_write = atoi(argv[3]);
+	
+    key_t key = 6001;
+	//Obtaining Access to shared memory
+	int shmid =  shmget(key, 1, 0666);
+	if(shmid < 0)
+	{
+		perror("Reader Error: Access Problem");
+		return 0;
+	}
+ 
+	//Attaching the shared memory
+	programa *memoria = (memoria = shmat(shmid, NULL, 0)); 
+        
+	if(memoria == "-1")
+	{
+		perror("Reader Error: Problem in attaching");
+	        return 0;
+	}
+    memoria->writer.cant_hijos = cantidad_writers;
+    memoria->writer.sleep_time = tiempo_sleep;
+    memoria->writer.execution_time = tiempo_write;
+
+
+    for(int i = 0; i<cantidad_writers;i++){
+        memoria->writer.procesos[i].PID = i+1;
+    }
 
     /*
 
@@ -41,7 +70,7 @@ int main(int argc, char** argv) {
              
     return 0;
 }
-
+/*
 void *writer_function(void *vargp)
 {     
     Writer *w = (Writer*) vargp;
@@ -99,4 +128,4 @@ void escribir_bitacora(char *msj){
     bitacora = fopen ("bitacora.txt", "a+");  
     fprintf(bitacora,"Writer-> %s\n",msj);
     fclose(bitacora);
-}
+}*/

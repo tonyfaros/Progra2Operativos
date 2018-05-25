@@ -13,7 +13,6 @@
 
 int main(int argc, char *argv[]){
 
-printf("hola");
 	int parametro = atoi(argv[1]);
 	char total_lines[12];
 	sprintf(total_lines, "%d", parametro);
@@ -50,3 +49,4 @@ printf("hola");
    	printf("Memoria apartada con exito\n");
 	return 0;
 }
+//ipcrm -M 6000

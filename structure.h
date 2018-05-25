@@ -39,6 +39,7 @@ typedef struct Padre{
 	//int type;  //1-> reader  2->writer  3->egoista
 	int sleep_time;
 	int execution_time;
+	int cant_hijos;
 	hijo procesos[100];
 
 }padre;

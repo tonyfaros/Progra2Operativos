@@ -24,7 +24,6 @@ char *strrev(char *str)
 }
 
 int seeMemoryState(){
-	int in,i ;
 
 	key_t key = 6001;
 	//Obtaining Access to shared memory
@@ -57,7 +56,8 @@ int seeMemoryState(){
 			for(int j = 0; j<strlen(memoria->lines[i].data);j++){
 				putchar(memoria->lines[i].data[j]);
 			}
-	}    	
+	}   
+	printf("%i ",memoria->writer.sleep_time); 	
 	printf("\n\n\n");
 	return 0;
 	
