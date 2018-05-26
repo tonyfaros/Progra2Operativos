@@ -44,7 +44,7 @@ typedef struct Padre{
 
 }padre;
 typedef struct Programa{
-	sem_t sem_writer;
+	sem_t *sem_writer;
 	sem_t sem_reader;
 	sem_t sem_egoista;
 	padre writer;
@@ -52,6 +52,7 @@ typedef struct Programa{
 	padre egoista;
 	Line lines[1000]; 
 	int memory_size;
+	unsigned int lineas_vacias;
 	int finalizar; //bool que mantendra todos los ciclos activos hasta que se finalice el programa
 
 }programa;

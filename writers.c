@@ -4,20 +4,64 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h>
 #include <time.h>
 
 #include "structure.h"
-char *line = "---------------------------------------------------\n";
 
-void *writer_function(void *vargp);
 void escribir_bitacora(char *msj);
+unsigned int *contador;
+programa *memoria;
 
+pthread_mutex_t mutex_archivo;
+pthread_mutexattr_t attr_mutex_archivo;
+
+
+void *writer_function(void *arg)
+{   
+    int PID = *((int *) arg);
+    int contador = 1;
+    while(1){
+        memoria->writer.procesos[PID].status = 3;
+        while(!memoria->lineas_vacias)
+            sem_wait(&memoria->sem_writer);
+        sem_post(&memoria->sem_writer);
+        
+        pthread_mutex_lock(&mutex_archivo);
+        
+
+        memoria->writer.procesos[PID].status = 2;
+        printf("escritura en linea %i\n\n", memoria->memory_size-memoria->lineas_vacias);
+
+        printf("proceso %i escribiendo\n", PID);
+        memoria->lineas_vacias=memoria->lineas_vacias-1;
+        fflush(stdout);
+        sleep(memoria->writer.execution_time);
+        
+        //sleep(5);
+
+        
+        pthread_mutex_unlock(&mutex_archivo);
+        memoria->writer.procesos[PID].status = 0;
+        printf("proceso %i durmiendo\n", PID);
+        sleep(memoria->writer.sleep_time);
+        //sleep(5);
+        
+
+    }
+            
+    return NULL;
+}
 
 int main(int argc, char** argv) {
-
+    //printf("\nhola");
+    
     int cantidad_writers = atoi(argv[1]);
     int tiempo_sleep= atoi(argv[2]);
     int tiempo_write = atoi(argv[3]);
+    pthread_t tid[cantidad_writers];
 	
     key_t key = 6001;
 	//Obtaining Access to shared memory
@@ -29,7 +73,7 @@ int main(int argc, char** argv) {
 	}
  
 	//Attaching the shared memory
-	programa *memoria = (memoria = shmat(shmid, NULL, 0)); 
+	memoria = (memoria = shmat(shmid, NULL, 0)); 
         
 	if(memoria == "-1")
 	{
@@ -39,12 +83,29 @@ int main(int argc, char** argv) {
     memoria->writer.cant_hijos = cantidad_writers;
     memoria->writer.sleep_time = tiempo_sleep;
     memoria->writer.execution_time = tiempo_write;
+    contador = &memoria->lineas_vacias;
 
+    
 
-    for(int i = 0; i<cantidad_writers;i++){
-        memoria->writer.procesos[i].PID = i+1;
+    //sem_init(&memoria->sem_writer,1,*contador);
+    memoria->sem_writer = sem_open("/writer", O_CREAT, 0644, *contador);
+    
+
+    pthread_mutexattr_init(&attr_mutex_archivo);
+    pthread_mutex_init(&mutex_archivo, &attr_mutex_archivo);
+    int i;
+    for(i = 0; i<cantidad_writers; i++){
+        //memoria->writer.procesos[i].PID = i+1;
+        
+        pthread_create(&tid[i], NULL, (void*)writer_function, &i);
+        sleep(1);
+        //printf("proceso %i\n", i);
     }
-
+   
+    for(i=0; i<cantidad_writers; i++)
+    {
+        pthread_join(tid[i], NULL);
+    }
     /*
 
     int n_procesos = 2;
@@ -67,62 +128,12 @@ int main(int argc, char** argv) {
                    
     
     */
-             
+    //while(memoria->finalizar);     
     return 0;
 }
-/*
-void *writer_function(void *vargp)
-{     
-    Writer *w = (Writer*) vargp;
-    time_t ltime;
-    struct tm *tm;         
-    char *shm = (char*) shmat(w->shmid,(void*)0,0);       
-    int pages = strlen(shm)/25;
-    int len = strlen(shm);
-    int regBase = 0;
-    int cont = 0;
-    int i = 0;
-    printf("len: %d \n",len);
-    printf("memoria %s \n",shm);
-    while(i <= 6){
-        regBase = cont*25;                                                         
-        if(shm[regBase]=='w'){
-            printf("Casilla llena en el registro Base:%d,contenido:%s,con id:%d\n",regBase,&shm[regBase],w->id); 
-            printf("%s",line);
-        }else{
-            sleep(w->tiempo_write);
-            
-            char *timestamp = (char *)malloc(sizeof(char) * 16);  
-            ltime=time(NULL);    
-            tm=localtime(&ltime); 
-            sprintf(timestamp,"%s%d-%04d/%02d/%02d-%02d:%02d:%02d","w",w->id, tm->tm_year+1900, tm->tm_mon, 
-                tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);                
-            int len_stamp = strlen(timestamp);
-            int j;
-            for(j=0;j<25;j++){
-                if(j < len_stamp){
-                    char ct = timestamp[j];
-                    shm[j+regBase] = ct;
-                }else{                    
-                    shm[j+regBase] = '-';
-                }                                               
-            }
-            //escribir_bitacora(timestamp);
-            printf("\nSe escribio en el registro Base:%d,%s, con id:%d\n",regBase,shm,w->id);                                       
-            printf("%s",line);
-            sleep(w->tiempo_sleep);
-        }
-        
-        cont++;
-        i=i+1;
-        if(cont == pages){
-            cont = 0;
-        }
-    }      
-            
-    return NULL;
-}
 
+
+/*
 void escribir_bitacora(char *msj){
     FILE *bitacora;
     bitacora = fopen ("bitacora.txt", "a+");  

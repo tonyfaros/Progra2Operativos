@@ -99,6 +99,6 @@ int main(int argc, char const *argv[])
 				break;
 
 		}
-	} while(choice != 9);
+	} while(choice != 5);
 }
 

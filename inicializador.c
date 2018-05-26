@@ -32,8 +32,10 @@ int main(int argc, char *argv[]){
 	programa *memoria = shmat(shmid, NULL, 0);
 	
 	memoria->memory_size = parametro;
+	memoria->lineas_vacias = parametro;
+	memoria->finalizar = 1;
 	sem_init(&memoria->sem_egoista,0,0);
-	sem_init(&memoria->sem_writer,0,0);
+	
 	sem_init(&memoria->sem_reader,0,0);
 
 
