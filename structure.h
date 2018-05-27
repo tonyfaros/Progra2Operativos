@@ -44,9 +44,20 @@ typedef struct Padre{
 
 }padre;
 typedef struct Programa{
-	sem_t *sem_writer;
-	sem_t sem_reader;
-	sem_t sem_egoista;
+	pthread_mutex_t *mutex_archivo;
+	pthread_mutexattr_t *attr_mutex_archivo;
+
+	pthread_mutex_t mutex_writer;
+	pthread_mutexattr_t attr_mutex_writer;
+
+	pthread_mutex_t mutex_reader;
+	pthread_mutexattr_t attr_mutex_reader;
+
+	pthread_mutex_t mutex_egoista;
+	pthread_mutexattr_t attr_mutex_egoista;
+	sem_t * sem_writer;
+	sem_t * sem_reader;
+	sem_t * sem_egoista;
 	padre writer;
 	padre reader;
 	padre egoista;

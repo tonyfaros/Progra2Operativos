@@ -15,8 +15,10 @@ void escribir_bitacora(char *msj);
 unsigned int *contador;
 programa *memoria;
 
-pthread_mutex_t mutex_archivo;
-pthread_mutexattr_t attr_mutex_archivo;
+pthread_mutex_t *mutex_archivo;
+pthread_mutexattr_t *attr_mutex_archivo;
+sem_t *sem_writer;
+
 
 
 void *writer_function(void *arg)
@@ -25,10 +27,10 @@ void *writer_function(void *arg)
     int contador = 1;
     while(1){
         memoria->writer.procesos[PID].status = 3;
-        while(!memoria->lineas_vacias)
-            sem_wait(&memoria->sem_writer);
-        sem_post(&memoria->sem_writer);
         
+        sem_wait(memoria->sem_writer);
+        printf("linea %i\n\n", memoria->lineas_vacias);
+        while(memoria->lineas_vacias <= 0);
         pthread_mutex_lock(&mutex_archivo);
         
 
@@ -45,6 +47,7 @@ void *writer_function(void *arg)
         
         pthread_mutex_unlock(&mutex_archivo);
         memoria->writer.procesos[PID].status = 0;
+        sem_post(memoria->sem_writer);
         printf("proceso %i durmiendo\n", PID);
         sleep(memoria->writer.sleep_time);
         //sleep(5);
@@ -62,6 +65,7 @@ int main(int argc, char** argv) {
     int tiempo_sleep= atoi(argv[2]);
     int tiempo_write = atoi(argv[3]);
     pthread_t tid[cantidad_writers];
+    pthread_t block;
 	
     key_t key = 6001;
 	//Obtaining Access to shared memory
@@ -83,24 +87,30 @@ int main(int argc, char** argv) {
     memoria->writer.cant_hijos = cantidad_writers;
     memoria->writer.sleep_time = tiempo_sleep;
     memoria->writer.execution_time = tiempo_write;
-    contador = &memoria->lineas_vacias;
+    //contador = &memoria->lineas_vacias;
 
+    attr_mutex_archivo = memoria->attr_mutex_archivo;
+    mutex_archivo = memoria->mutex_archivo;
     
-
-    //sem_init(&memoria->sem_writer,1,*contador);
-    memoria->sem_writer = sem_open("/writer", O_CREAT, 0644, *contador);
     
-
     pthread_mutexattr_init(&attr_mutex_archivo);
     pthread_mutex_init(&mutex_archivo, &attr_mutex_archivo);
+    //sem_init(&memoria->sem_writer,1,*contador);
+    memoria->sem_writer = sem_open("/writer", O_CREAT | O_EXCL, 0644, 1);
+    //memoria->sem_writer = sem_open("/writer", O_CREAT, 0644, 0);
+    
+    sem_writer = memoria->sem_writer;
+    
     int i;
+    //pthread_create(&block, NULL, block_, NULL);
     for(i = 0; i<cantidad_writers; i++){
-        //memoria->writer.procesos[i].PID = i+1;
-        
+        memoria->writer.procesos[i].PID = i;
+        //sem_wait(memoria->sem_writer);
         pthread_create(&tid[i], NULL, (void*)writer_function, &i);
         sleep(1);
         //printf("proceso %i\n", i);
     }
+
    
     for(i=0; i<cantidad_writers; i++)
     {
