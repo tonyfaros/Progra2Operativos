@@ -25,7 +25,7 @@ typedef struct{
 
 typedef struct{
 	int Id;
-	char data[30];
+	char data[100];
 
 }Line;
 
@@ -46,15 +46,6 @@ typedef struct Padre{
 typedef struct Programa{
 	pthread_mutex_t *mutex_archivo;
 	pthread_mutexattr_t *attr_mutex_archivo;
-
-	pthread_mutex_t mutex_writer;
-	pthread_mutexattr_t attr_mutex_writer;
-
-	pthread_mutex_t mutex_reader;
-	pthread_mutexattr_t attr_mutex_reader;
-
-	pthread_mutex_t mutex_egoista;
-	pthread_mutexattr_t attr_mutex_egoista;
 	sem_t * sem_writer;
 	sem_t * sem_reader;
 	sem_t * sem_egoista;
@@ -63,7 +54,7 @@ typedef struct Programa{
 	padre egoista;
 	Line lines[1000]; 
 	int memory_size;
-	unsigned int lineas_vacias;
+	int lineas_vacias;
 	int finalizar; //bool que mantendra todos los ciclos activos hasta que se finalice el programa
 
 }programa;

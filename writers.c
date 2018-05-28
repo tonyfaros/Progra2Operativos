@@ -18,6 +18,8 @@ programa *memoria;
 pthread_mutex_t *mutex_archivo;
 pthread_mutexattr_t *attr_mutex_archivo;
 sem_t *sem_writer;
+time_t mytime;
+int num_linea = 0;
 
 
 
@@ -29,29 +31,72 @@ void *writer_function(void *arg)
         memoria->writer.procesos[PID].status = 3;
         
         sem_wait(memoria->sem_writer);
-        printf("linea %i\n\n", memoria->lineas_vacias);
         while(memoria->lineas_vacias <= 0);
+        
+        while(strcmp (memoria->lines[num_linea].data, "vacio") != 0){
+            num_linea++;
+        
+        }
         pthread_mutex_lock(&mutex_archivo);
         
+		mytime = time(NULL);
+		
 
+        struct tm *info;
+        char tiempo[50];
+        char mensaje[80];
+        char aux[12];
+	    sprintf(aux, "%d", PID);
+
+        strcpy(mensaje, aux);
+        strcat(mensaje, " -- ");
+        
+        //se obtiene la fecha
+        time( &mytime );
+        info = localtime( &mytime );
+        strftime(tiempo,80,"%x - %I:%M%p", info);
+        printf("Formatted date & time : |%s|\n", tiempo );
+
+        strcat(mensaje, tiempo);
+        strcat(mensaje, " -- ");
+        sprintf(aux, "%d", memoria->memory_size-memoria->lineas_vacias);
+        strcat(mensaje, aux);
+        printf("MENSAJE|%s|\n", mensaje);
         memoria->writer.procesos[PID].status = 2;
+
         printf("escritura en linea %i\n\n", memoria->memory_size-memoria->lineas_vacias);
 
         printf("proceso %i escribiendo\n", PID);
-        memoria->lineas_vacias=memoria->lineas_vacias-1;
+        
+        
+        for (int i = 0; i<strlen(mensaje); i++)
+		{
+			memoria->lines[memoria->memory_size-memoria->lineas_vacias].data[i]=mensaje[i];
+		}
+        //escritura en bitacora
+        char bitacora[500];
+        sprintf(aux, "%d", PID);
+        strcpy(bitacora,aux);
+        strcat(bitacora, " ~ ");
+
+        strcat(bitacora, tiempo);
+        strcat(bitacora," ~ mensaje->");
+        
+        strcat(bitacora,mensaje);
+        strcat(bitacora,"\n");
+        escribir_bitacora(bitacora);
+        memoria->lineas_vacias = memoria->lineas_vacias-1;
+ 
         fflush(stdout);
         sleep(memoria->writer.execution_time);
         
-        //sleep(5);
 
         
         pthread_mutex_unlock(&mutex_archivo);
         memoria->writer.procesos[PID].status = 0;
         sem_post(memoria->sem_writer);
         printf("proceso %i durmiendo\n", PID);
-        sleep(memoria->writer.sleep_time);
-        //sleep(5);
-        
+        sleep(memoria->writer.sleep_time);      
 
     }
             
@@ -59,7 +104,6 @@ void *writer_function(void *arg)
 }
 
 int main(int argc, char** argv) {
-    //printf("\nhola");
     
     int cantidad_writers = atoi(argv[1]);
     int tiempo_sleep= atoi(argv[2]);
@@ -67,7 +111,7 @@ int main(int argc, char** argv) {
     pthread_t tid[cantidad_writers];
     pthread_t block;
 	
-    key_t key = 6001;
+    key_t key = 6002;
 	//Obtaining Access to shared memory
 	int shmid =  shmget(key, 1, 0666);
 	if(shmid < 0)
@@ -87,7 +131,6 @@ int main(int argc, char** argv) {
     memoria->writer.cant_hijos = cantidad_writers;
     memoria->writer.sleep_time = tiempo_sleep;
     memoria->writer.execution_time = tiempo_write;
-    //contador = &memoria->lineas_vacias;
 
     attr_mutex_archivo = memoria->attr_mutex_archivo;
     mutex_archivo = memoria->mutex_archivo;
@@ -95,9 +138,7 @@ int main(int argc, char** argv) {
     
     pthread_mutexattr_init(&attr_mutex_archivo);
     pthread_mutex_init(&mutex_archivo, &attr_mutex_archivo);
-    //sem_init(&memoria->sem_writer,1,*contador);
     memoria->sem_writer = sem_open("/writer", O_CREAT | O_EXCL, 0644, 1);
-    //memoria->sem_writer = sem_open("/writer", O_CREAT, 0644, 0);
     
     sem_writer = memoria->sem_writer;
     
@@ -115,7 +156,9 @@ int main(int argc, char** argv) {
     for(i=0; i<cantidad_writers; i++)
     {
         pthread_join(tid[i], NULL);
+        printf("hola");
     }
+
     /*
 
     int n_procesos = 2;
@@ -142,11 +185,9 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-
-/*
 void escribir_bitacora(char *msj){
     FILE *bitacora;
-    bitacora = fopen ("bitacora.txt", "a+");  
+    bitacora = fopen ("bitacora.txt", "a");  
     fprintf(bitacora,"Writer-> %s\n",msj);
     fclose(bitacora);
-}*/
+}
