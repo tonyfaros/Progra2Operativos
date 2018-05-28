@@ -55,13 +55,13 @@ void *writer_function(void *arg)
         time( &mytime );
         info = localtime( &mytime );
         strftime(tiempo,80,"%x - %I:%M%p", info);
-        printf("Formatted date & time : |%s|\n", tiempo );
+        //printf("Formatted date & time : |%s|\n", tiempo );
 
         strcat(mensaje, tiempo);
         strcat(mensaje, " -- ");
         sprintf(aux, "%d", memoria->memory_size-memoria->lineas_vacias);
         strcat(mensaje, aux);
-        printf("MENSAJE|%s|\n", mensaje);
+        //printf("MENSAJE|%s|\n", mensaje);
         memoria->writer.procesos[PID].status = 2;
 
         printf("escritura en linea %i\n\n", memoria->memory_size-memoria->lineas_vacias);
