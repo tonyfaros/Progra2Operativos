@@ -18,7 +18,7 @@ int main(int argc, char *argv[]){
 	sprintf(total_lines, "%d", parametro);
 
 
-	key_t key = 6002;
+	key_t key = 6006;
 	//Obtaining Access to shared memory
 	int shmid = shmget(key, sizeof(programa), 0777 | IPC_CREAT);
 	
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
 	printf("linea %i\n\n", memoria->lineas_vacias);
 	memoria->finalizar = 1;
 
-
+	memoria->sem_reader=sem_open("/reader", O_CREAT | O_EXCL, 0644, 1);
 
 
 	//se llenan las lineas vacias

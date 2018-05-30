@@ -1,12 +1,228 @@
-Writer-> 0 ~ 05/27/18 - 08:31PM ~ mensaje->0 -- 05/27/18 - 08:31PM -- 0
+Egoista-> 0 ~ 05/29/18 - 10:56AM ~ mensaje->0 -- 05/28/18 - 08:47PM -- 10
 
-Writer-> 1 ~ 05/27/18 - 08:31PM ~ mensaje->1 -- 05/27/18 - 08:31PM -- 1
+Egoista-> 1 ~ 05/29/18 - 10:56AM ~ mensaje->0 -- 05/28/18 - 08:47PM -- 1
 
-Writer-> 2 ~ 05/27/18 - 08:31PM ~ mensaje->2 -- 05/27/18 - 08:31PM -- 2
+Egoista-> 2 ~ 05/29/18 - 10:56AM ~ mensaje->0 -- 05/28/18 - 08:46PM -- 0
 
-Writer-> 0 ~ 05/27/18 - 08:32PM ~ mensaje->0 -- 05/27/18 - 08:32PM -- 3
+Writer-> 0 ~ 05/29/18 - 11:45AM ~ mensaje->0 -- 05/29/18 - 11:45AM -- 0
 
-Writer-> 1 ~ 05/27/18 - 08:32PM ~ mensaje->1 -- 05/27/18 - 08:32PM -- 4
+Writer-> 1 ~ 05/29/18 - 11:45AM ~ mensaje->1 -- 05/29/18 - 11:45AM -- 1
 
-Writer-> 2 ~ 05/27/18 - 08:32PM ~ mensaje->2 -- 05/27/18 - 08:32PM -- 5
+Writer-> 2 ~ 05/29/18 - 11:45AM ~ mensaje->2 -- 05/29/18 - 11:45AM -- 2
+
+Writer-> 0 ~ 05/29/18 - 12:13PM ~ mensaje->0 -- 05/29/18 - 12:13PM -- 0
+
+Writer-> 1 ~ 05/29/18 - 12:13PM ~ mensaje->1 -- 05/29/18 - 12:13PM -- 1
+
+Writer-> 2 ~ 05/29/18 - 12:13PM ~ mensaje->2 -- 05/29/18 - 12:13PM -- 2
+
+Writer-> 0 ~ 05/29/18 - 12:18PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Writer-> 1 ~ 05/29/18 - 12:18PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Writer-> 2 ~ 05/29/18 - 12:18PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:20PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:20PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 2 ~ 05/29/18 - 12:20PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 0 ~ 05/29/18 - 12:23PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:23PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:23PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:23PM ~ mensaje->
+
+Reader-> 1 ~ 05/29/18 - 12:23PM ~ mensaje->
+
+Reader-> 2 ~ 05/29/18 - 12:23PM ~ mensaje->
+
+Reader-> 0 ~ 05/29/18 - 12:23PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:23PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:23PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:24PM ~ mensaje->
+
+Reader-> 1 ~ 05/29/18 - 12:24PM ~ mensaje->
+
+Reader-> 2 ~ 05/29/18 - 12:24PM ~ mensaje->
+
+Reader-> 0 ~ 05/29/18 - 12:24PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:24PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:24PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:24PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:24PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:24PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:25PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:25PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:25PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:25PM ~ mensaje->
+
+Reader-> 1 ~ 05/29/18 - 12:25PM ~ mensaje->
+
+Reader-> 2 ~ 05/29/18 - 12:25PM ~ mensaje->
+
+Reader-> 0 ~ 05/29/18 - 12:25PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:25PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:25PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:25PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:25PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:25PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:25PM ~ mensaje->
+
+Reader-> 1 ~ 05/29/18 - 12:25PM ~ mensaje->
+
+Reader-> 2 ~ 05/29/18 - 12:25PM ~ mensaje->
+
+Reader-> 0 ~ 05/29/18 - 12:27PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:27PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:27PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:27PM ~ mensaje->
+
+Reader-> 1 ~ 05/29/18 - 12:27PM ~ mensaje->
+
+Reader-> 0 ~ 05/29/18 - 12:28PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 0 ~ 05/29/18 - 12:28PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 0 ~ 05/29/18 - 12:28PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:28PM ~ mensaje->
+
+Reader-> 0 ~ 05/29/18 - 12:29PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 0 ~ 05/29/18 - 12:29PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 0 ~ 05/29/18 - 12:29PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:29PM ~ mensaje->
+
+Reader-> 0 ~ 05/29/18 - 12:30PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 0 ~ 05/29/18 - 12:30PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 0 ~ 05/29/18 - 12:30PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:30PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 0 ~ 05/29/18 - 12:30PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 0 ~ 05/29/18 - 12:31PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:31PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:31PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:31PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:31PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:31PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Egoista-> 0 ~ 05/29/18 - 12:33PM ~ mensaje->
+
+Egoista-> 1 ~ 05/29/18 - 12:33PM ~ mensaje->0 -- 05/29/18 - 12:18PM -- 0
+
+Egoista-> 0 ~ 05/29/18 - 12:33PM ~ mensaje->1 -- 05/29/18 - 12:18PM -- 1
+
+Egoista-> 1 ~ 05/29/18 - 12:33PM ~ mensaje->vacio                       
+
+Egoista-> 2 ~ 05/29/18 - 12:33PM ~ mensaje->2 -- 05/29/18 - 12:18PM -- 2
+
+Egoista-> 0 ~ 05/29/18 - 12:34PM ~ mensaje->vacio                       
+
+Egoista-> 1 ~ 05/29/18 - 12:34PM ~ mensaje->vacio                       
+
+Egoista-> 0 ~ 05/29/18 - 12:37PM ~ mensaje->vacio                       
+
+Egoista-> 1 ~ 05/29/18 - 12:37PM ~ mensaje->vacio                       
+
+Egoista-> 2 ~ 05/29/18 - 12:37PM ~ mensaje->vacio                       
+
+Egoista-> 0 ~ 05/29/18 - 12:37PM ~ mensaje->vacio                       
+
+Egoista-> 1 ~ 05/29/18 - 12:38PM ~ mensaje->vacio                       
+
+Egoista-> 2 ~ 05/29/18 - 12:38PM ~ mensaje->vacio                       
+
+Egoista-> 0 ~ 05/29/18 - 12:38PM ~ mensaje->vacio                       
+
+Writer-> 0 ~ 05/29/18 - 12:42PM ~ mensaje->0 -- 05/29/18 - 12:42PM -- 0
+
+Writer-> 1 ~ 05/29/18 - 12:42PM ~ mensaje->1 -- 05/29/18 - 12:42PM -- 1
+
+Writer-> 2 ~ 05/29/18 - 12:42PM ~ mensaje->2 -- 05/29/18 - 12:42PM -- 2
+
+Egoista-> 0 ~ 05/29/18 - 12:44PM ~ mensaje->vacio                       
+
+Writer-> 0 ~ 05/29/18 - 12:46PM ~ mensaje->0 -- 05/29/18 - 12:46PM -- 0
+
+Writer-> 1 ~ 05/29/18 - 12:46PM ~ mensaje->1 -- 05/29/18 - 12:46PM -- 1
+
+Writer-> 2 ~ 05/29/18 - 12:46PM ~ mensaje->2 -- 05/29/18 - 12:46PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:46PM ~ mensaje->0 -- 05/29/18 - 12:46PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:46PM ~ mensaje->1 -- 05/29/18 - 12:46PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 12:46PM ~ mensaje->2 -- 05/29/18 - 12:46PM -- 2
+
+Reader-> 0 ~ 05/29/18 - 12:46PM ~ mensaje->0 -- 05/29/18 - 12:46PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:46PM ~ mensaje->1 -- 05/29/18 - 12:46PM -- 1
+
+Egoista-> 0 ~ 05/29/18 - 12:46PM ~ mensaje->1 -- 05/29/18 - 12:46PM -- 1
+
+Reader-> 0 ~ 05/29/18 - 12:47PM ~ mensaje->0 -- 05/29/18 - 12:46PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 12:47PM ~ mensaje->2 -- 05/29/18 - 12:46PM -- 2
+
+Reader-> 2 ~ 05/29/18 - 12:47PM ~ mensaje->0 -- 05/29/18 - 12:46PM -- 0
+
+Reader-> 0 ~ 05/29/18 - 12:47PM ~ mensaje->2 -- 05/29/18 - 12:46PM -- 2
+
+Reader-> 1 ~ 05/29/18 - 12:47PM ~ mensaje->0 -- 05/29/18 - 12:46PM -- 0
+
+Reader-> 2 ~ 05/29/18 - 12:47PM ~ mensaje->2 -- 05/29/18 - 12:46PM -- 2
+
+Egoista-> 0 ~ 05/29/18 - 12:47PM ~ mensaje->0 -- 05/29/18 - 12:46PM -- 0
+
+Egoista-> 0 ~ 05/29/18 - 12:47PM ~ mensaje->2 -- 05/29/18 - 12:46PM -- 2
+
+Writer-> 0 ~ 05/29/18 - 11:23PM ~ mensaje->0 -- 05/29/18 - 11:23PM -- 0
+
+Writer-> 1 ~ 05/29/18 - 11:23PM ~ mensaje->1 -- 05/29/18 - 11:23PM -- 1
+
+Reader-> 0 ~ 05/29/18 - 11:24PM ~ mensaje->0 -- 05/29/18 - 11:23PM -- 0
+
+Reader-> 1 ~ 05/29/18 - 11:24PM ~ mensaje->1 -- 05/29/18 - 11:23PM -- 1
+
+Reader-> 2 ~ 05/29/18 - 11:24PM ~ mensaje->0 -- 05/29/18 - 11:23PM -- 0
+
+Egoista-> 0 ~ 05/29/18 - 11:25PM ~ mensaje->1 -- 05/29/18 - 11:23PM -- 1
+
+Egoista-> 1 ~ 05/29/18 - 11:25PM ~ mensaje->0 -- 05/29/18 - 11:23PM -- 0
 

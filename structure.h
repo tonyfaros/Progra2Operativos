@@ -32,6 +32,7 @@ typedef struct{
 typedef struct Hijo{
 	int PID;
 	int status; // 0->dormido  1->wait  2->ejecucion
+	int linea;
 
 }hijo;;
 
@@ -55,6 +56,7 @@ typedef struct Programa{
 	Line lines[1000]; 
 	int memory_size;
 	int lineas_vacias;
+	int contador_egoista; //cuando llega a 3 se bloquean
 	int finalizar; //bool que mantendra todos los ciclos activos hasta que se finalice el programa
 
 }programa;

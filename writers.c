@@ -8,6 +8,7 @@
 #include <semaphore.h>
 #include <unistd.h>
 #include <time.h>
+#include <mach/semaphore.h>
 
 #include "structure.h"
 
@@ -17,7 +18,8 @@ programa *memoria;
 
 pthread_mutex_t *mutex_archivo;
 pthread_mutexattr_t *attr_mutex_archivo;
-sem_t *sem_writer;
+
+semaphore_t *sem_writer;
 time_t mytime;
 int num_linea = 0;
 
@@ -27,18 +29,20 @@ void *writer_function(void *arg)
 {   
     int PID = *((int *) arg);
     int contador = 1;
-    while(1){
-        memoria->writer.procesos[PID].status = 3;
+    while(memoria->finalizar){
+        memoria->writer.procesos[PID].status = 1;
         
-        sem_wait(memoria->sem_writer);
+        semaphore_wait(sem_writer);
         while(memoria->lineas_vacias <= 0);
-        
+        //while(PID==1);
+        if (num_linea == memoria->memory_size)
+            num_linea = 0;
         while(strcmp (memoria->lines[num_linea].data, "vacio") != 0){
-            num_linea++;
+            num_linea=num_linea+1;
         
         }
         pthread_mutex_lock(&mutex_archivo);
-        
+        memoria->contador_egoista = 0;
 		mytime = time(NULL);
 		
 
@@ -55,13 +59,13 @@ void *writer_function(void *arg)
         time( &mytime );
         info = localtime( &mytime );
         strftime(tiempo,80,"%x - %I:%M%p", info);
-        //printf("Formatted date & time : |%s|\n", tiempo );
+        
 
         strcat(mensaje, tiempo);
         strcat(mensaje, " -- ");
         sprintf(aux, "%d", memoria->memory_size-memoria->lineas_vacias);
         strcat(mensaje, aux);
-        //printf("MENSAJE|%s|\n", mensaje);
+        
         memoria->writer.procesos[PID].status = 2;
 
         printf("escritura en linea %i\n\n", memoria->memory_size-memoria->lineas_vacias);
@@ -71,7 +75,7 @@ void *writer_function(void *arg)
         
         for (int i = 0; i<strlen(mensaje); i++)
 		{
-			memoria->lines[memoria->memory_size-memoria->lineas_vacias].data[i]=mensaje[i];
+			memoria->lines[num_linea].data[i]=mensaje[i];
 		}
         //escritura en bitacora
         char bitacora[500];
@@ -90,11 +94,10 @@ void *writer_function(void *arg)
         fflush(stdout);
         sleep(memoria->writer.execution_time);
         
-
         
         pthread_mutex_unlock(&mutex_archivo);
+        semaphore_signal(sem_writer);
         memoria->writer.procesos[PID].status = 0;
-        sem_post(memoria->sem_writer);
         printf("proceso %i durmiendo\n", PID);
         sleep(memoria->writer.sleep_time);      
 
@@ -109,9 +112,8 @@ int main(int argc, char** argv) {
     int tiempo_sleep= atoi(argv[2]);
     int tiempo_write = atoi(argv[3]);
     pthread_t tid[cantidad_writers];
-    pthread_t block;
 	
-    key_t key = 6002;
+    key_t key = 6006;
 	//Obtaining Access to shared memory
 	int shmid =  shmget(key, 1, 0666);
 	if(shmid < 0)
@@ -138,50 +140,28 @@ int main(int argc, char** argv) {
     
     pthread_mutexattr_init(&attr_mutex_archivo);
     pthread_mutex_init(&mutex_archivo, &attr_mutex_archivo);
-    memoria->sem_writer = sem_open("/writer", O_CREAT | O_EXCL, 0644, 1);
+
+    //sem_writer = sem_open("/writer", O_CREAT | O_EXCL, 0644, 1);
+    mach_port_t self = mach_task_self();
+    semaphore_create(self, &sem_writer, SYNC_POLICY_FIFO, 1);
     
-    sem_writer = memoria->sem_writer;
+    //sem_writer = memoria->sem_writer;
     
     int i;
-    //pthread_create(&block, NULL, block_, NULL);
     for(i = 0; i<cantidad_writers; i++){
         memoria->writer.procesos[i].PID = i;
-        //sem_wait(memoria->sem_writer);
         pthread_create(&tid[i], NULL, (void*)writer_function, &i);
         sleep(1);
-        //printf("proceso %i\n", i);
     }
 
    
     for(i=0; i<cantidad_writers; i++)
     {
         pthread_join(tid[i], NULL);
-        printf("hola");
     }
+    semaphore_destroy(self, sem_writer);
 
-    /*
-
-    int n_procesos = 2;
-    int t_sleep = 4;
-    int t_write = 2;    
-    key_t key = ftok("shmfile",21);        
-    int shmid = shmget(key,1,0666|IPC_CREAT);  
-    pthread_t writer_array[4];    
-    int i = 0;        
-    while(i<n_procesos){    
-        Writer *w = malloc(sizeof(Writer));        
-        w->id = i;
-        w->shmid = shmid;
-        w->tiempo_sleep = t_sleep;
-        w->tiempo_write = t_write;        
-        pthread_create(&writer_array[i], NULL, writer_function, (void*) w);                                
-        i=i+1;
-    }
-    pthread_join(writer_array[0], NULL); 
-                   
-    
-    */
-    //while(memoria->finalizar);     
+        
     return 0;
 }
 
